@@ -1,0 +1,11 @@
+= astrails-netpay
+
+NetPay (http://netpay.com/) Payments Gateway integration
+
+1. run ""./script/generate netpay"
+2. add "has_many :netpay_logs, :as => :netpayable" to your model
+3. use in your model:
+
+== Copyright 2010
+
+Copyright (c) 2010 Boris Nadion, Astrails Ltd. See LICENSE for details.
