@@ -4,7 +4,7 @@ NetPay (http://netpay.com/) Payments Gateway integration
 
 1. run "./script/generate netpay" <- generates netpays log model and migration
 2. use in your model/controller whatever:
-  s = Netpay::SilentPost.new(company_number)
+  s = Netpay::SilentPost.new(company_number, some_context_string)
   s.process(cc, expiration_month, expiration_year, name_on_card, amount_cents, ccv2, email, user_ident, phone_number, transaction_description, currency)
   if s.success?
     # on success
