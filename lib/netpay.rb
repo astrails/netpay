@@ -18,8 +18,8 @@ module Netpay
 
     attr_reader :response
 
-    def initialize(url, company_number)
-      @url, @company_number = url, company_number
+    def initialize(url, company_number, context)
+      @url, @company_number, @context = url, company_number, context
     end
 
     def post(opts)
@@ -60,7 +60,8 @@ module Netpay
       end
 
       NetpayLog.create(:request => form_data.inspect, :response => @response, 
-        :exception => exception, :netpay_status => parsed_response[:Reply], :http_code => code)
+        :exception => exception, :netpay_status => parsed_response[:Reply], :http_code => code,
+        :context => @context)
 
       success
     end
@@ -84,8 +85,8 @@ module Netpay
   end
 
   class SilentPost < Poster
-    def initialize(company_number)
-      super("https://process.netpay-intl.com/member/remote_charge.asp", company_number)
+    def initialize(company_number, context = nil)
+      super("https://process.netpay-intl.com/member/remote_charge.asp", company_number, context)
     end
 
     def process(cc, expiration_month, expiration_year, name_on_card, amount_cents, ccv2, email, user_ident, phone_number, transaction_description, currency = "ILS")

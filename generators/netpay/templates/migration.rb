@@ -6,9 +6,10 @@ class CreateNetpayLogs < ActiveRecord::Migration
       t.string    :exception
       t.string    :netpay_status, :limit => 3
       t.integer   :http_code
+      t.string    :context
       t.timestamps
     end
-
+    add_index :netpay_logs, :context
   end
   
   def self.down
