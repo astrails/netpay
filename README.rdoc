@@ -4,13 +4,17 @@ NetPay (http://netpay.com/) Payments Gateway integration
 
 1. run "./script/generate netpay" <- generates netpays log model and migration
 2. use in your model/controller whatever:
-  s = Netpay::SilentPost.new(company_number, some_context_string)
+  s = Netpay::SilentPost.new(company_number, some_context_string, add_context_to_net_pay)
   s.process(cc, expiration_month, expiration_year, name_on_card, amount_cents, ccv2, email, user_ident, phone_number, transaction_description, currency)
   if s.success?
     # on success
   else
     # on failure
   end
+
+Use
+  s = Netpay::SilentPost.new(company_number, some_context_string, add_context_to_net_pay, true)
+to skip SSL certificates verification ie. using OpenSSL::SSL::VERIFY_NONE
 
 == Copyright 2010
 
