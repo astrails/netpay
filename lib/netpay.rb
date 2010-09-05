@@ -16,7 +16,7 @@ module Netpay
       :Payments => 1
     }
 
-    attr_reader :response
+    attr_reader :response, :log_id
 
     def initialize(url, company_number, context, skip_ssl_verification)
       @url, @company_number, @context, @skip_ssl_verification = url, company_number, context, skip_ssl_verification
@@ -61,9 +61,11 @@ module Netpay
         exception = e
       end
 
-      NetpayLog.create(:request => form_data.inspect, :response => @response, 
+      log_record = NetpayLog.create(:request => form_data.inspect, :response => @response,
         :exception => exception, :netpay_status => parsed_response[:Reply], :http_code => code,
         :context => @context)
+
+      @log_id = log_record.id
 
       success
     end
