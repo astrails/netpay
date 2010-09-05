@@ -41,7 +41,7 @@ module Netpay
 
       net = Net::HTTP.new(uri.host, uri.port)
       net.use_ssl = true
-      net.http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @skip_ssl_verification
+      net.verify_mode = OpenSSL::SSL::VERIFY_NONE if @skip_ssl_verification
 
       res = net.start do |http|
         http.open_timeout = DEFAULT_TIMEOUT
